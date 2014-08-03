@@ -23,11 +23,96 @@
 
 		<script>
 		$( document ).ready(function() {
-		    var movies = ['Do the right thing', 'Her', 'Django Unchained', "I'm still here", 'Electrick Children', "Inglorious Basterds", 'Breathless', 'Troll 2', 'Fearless', 'City of God', 'Ip Man/Ip Man 2', 'Louis Theroux Documentary'];
+		    var movies = [
+		    {
+		    	movie: 'Do the right thing', 
+		    	picker: 'emily'
+		    },
+		    {
+		    	movie: 'Her', 
+		    	picker: 'emily'
+		    },
+		    {
+		    	movie: "I'm still here", 
+		    	picker: 'emily'
+		    },
+		    {
+		    	movie: 'Electrick Children', 
+		    	picker: 'emily'
+		    },
+		    {
+		    	movie: 'Inglorious Basterds', 
+		    	picker: 'brian'
+		    },
+		    {
+		    	movie: 'Breathless', 
+		    	picker: 'emily'
+		    },
+		    {
+		    	movie: 'Troll 2', 
+		    	picker: 'brian'
+		    }, 
+		    {
+		    	movie: 'Fearless', 
+		    	picker: 'brian'
+		    },
+		    {
+		    	movie: 'City of God', 
+		    	picker: 'brian'
+		    },
+		    {
+		    	movie: 'Ip Man/Ip Man 2', 
+		    	picker: 'brian'
+		    },
+		    {
+		    	movie: 'Louis Theroux Documentary', 
+		    	picker: 'emily'
+		    }
+	    ];
 
 		    var watchedMovies = ['Ip Man/Ip Man 2', 'Electrick Children', 'Do the right thing'];
-		   	var unwatchedMovies = _.difference(movies, watchedMovies);
+		    
+		   	
+		   	var weighting = window.prompt('Who should this choice favor?')
 
+		   	var weight = window.prompt('weight? (0-1)')
+		   	
+		   	var newMoviesArray = [];
+		   	if (weighting.toLowerCase() == 'brian'){
+		   		for (var i = 0; i < movies.length; i++) {
+		   			var decider = Math.random();
+		   			if (movies[i].picker == 'brian'){
+		   				if (decider < weight){
+		   					newMoviesArray.push(movies[i]);
+		   				}
+		   			} else if (movies[i].picker == 'emily'){
+		   				if (decider > weight){
+		   					newMoviesArray.push(movies[i]);
+		   				}
+		   			}
+		   		};
+		   	} else if(weighting.toLowerCase() == 'emily'){
+		   		for (var i = 0; i < movies.length; i++) {
+		   			var decider = Math.random();
+		   			if (movies[i].picker == 'emily'){
+		   				if (decider < weight){
+		   					newMoviesArray.push(movies[i]);
+		   				}
+		   			} else if (movies[i].picker == 'brian'){
+		   				if (decider > weight){
+		   					newMoviesArray.push(movies[i]);
+		   				}
+		   			}
+		   		};
+		   	} else if(weighting.toLowerCase() != 'emily' || weighting.toLowerCase() != 'brian'){
+		   		newMoviesArray = movies;
+		   	}
+		   	console.log(newMoviesArray)
+		   	// create simple array
+		   	var moviesArray = _.pluck(newMoviesArray, 'movie');
+		   	console.log(moviesArray)
+		   	var unwatchedMovies = _.difference(moviesArray, watchedMovies);
+		   	console.log(unwatchedMovies)
 		    var movieArrayLength = unwatchedMovies.length;
 		    var picker = Math.random();
 		    var choice = Math.floor(movieArrayLength * picker);
